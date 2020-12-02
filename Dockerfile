@@ -1,8 +1,8 @@
-FROM 32bit/ubuntu:16.04
+FROM ubuntu:20.04
 LABEL maintainer="Joel Luth (joel.luth@gmail.com)"
 LABEL description="build environment for the Korg logue SDK"
 
-ENV LOGUE_REPO https://github.com/korginc/logue-sdk.git
+ENV LOGUE_REPO https://github.com/letrout/logue-sdk.git
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
@@ -18,11 +18,12 @@ RUN apt-get update \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-WORKDIR /git/korginc
+WORKDIR /git
 RUN git clone ${LOGUE_REPO}
-WORKDIR /git/korginc/logue-sdk
+WORKDIR /git/logue-sdk
+RUN git checkout linux64
 RUN git submodule update --init
-WORKDIR /git/korginc/logue-sdk/tools/gcc
+WORKDIR /git/logue-sdk/tools/gcc
 RUN ./get_gcc_linux.sh
 #WORKDIR /git/korginc/logue-sdk/tools/logue-cli
 #RUN ./get_logue_cli_linux.sh
