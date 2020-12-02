@@ -1,4 +1,4 @@
-FROM 32bit/ubuntu:16.04
+FROM i386/debian:10-slim
 LABEL maintainer="Joel Luth (joel.luth@gmail.com)"
 LABEL description="build environment for the Korg logue SDK"
 
@@ -6,6 +6,7 @@ ENV LOGUE_REPO https://github.com/korginc/logue-sdk.git
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
+		bzip2 \
 		ca-certificates \
 		curl \
 		git \
